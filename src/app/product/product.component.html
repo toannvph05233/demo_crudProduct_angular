@@ -4,11 +4,18 @@
   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalCreate">
     Create
   </button>
+  <h1>{{name2}}</h1>
+  <select [(ngModel)]="name2">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+  </select>
   <table class="table table-striped">
     <thead>
     <tr>
       <th>Name</th>
       <th>Img</th>
+      <th>Status</th>
       <th>Price</th>
       <th>Edit</th>
       <th>Delete</th>
@@ -19,6 +26,11 @@
     <tr *ngFor="let p of products">
       <td>{{p.name}}</td>
       <td><img src="{{p.img}}" width="300" height="200"></td>
+
+<!--  *ngIf nếu là true thì sẽ hiển thị thẻ đó, không hiển thị thẻ khi là false-->
+      <td *ngIf="p.status === true" style="color: blue">Còn hàng</td>
+      <td *ngIf="p.status === false" style="color: red">hết hàng</td>
+
       <td>{{p.price}}</td>
       <td>
         <button type="button" class="btn btn-secondary" (click)="showEdit(p.name)" data-toggle="modal"
@@ -30,6 +42,8 @@
         <button (click)="deleteProduct(p.name)" type="button" class="btn btn-secondary">Delete</button>
       </td>
     </tr>
+
+
 
     </tbody>
   </table>
