@@ -1,0 +1,97 @@
+<div class="container">
+  <h2>Table Product</h2>
+  <p></p>
+  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalCreate">
+    Create
+  </button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Img</th>
+      <th>Price</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let p of products">
+      <td>{{p.name}}</td>
+      <td><img src="{{p.img}}" width="300" height="200"></td>
+      <td>{{p.price}}</td>
+      <td>
+        <button type="button" class="btn btn-secondary" (click)="showEdit(p.name)" data-toggle="modal"
+                data-target="#myModalEdit">
+          Edit
+        </button>
+      </td>
+      <td>
+        <button (click)="deleteProduct(p.name)" type="button" class="btn btn-secondary">Delete</button>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <!-- The Modal create -->
+  <div class="modal" id="myModalCreate">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Create Product</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          nhập name : <input [(ngModel)]="name" placeholder="name">
+          <br>
+          nhập img :<input [(ngModel)]="img" placeholder="img">
+          <br>
+          nhập price :<input [(ngModel)]="price">
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" (click)="createProduct()" class="btn btn-success" data-dismiss="modal">Crete</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- The Modal Edit -->
+  <div class="modal" id="myModalEdit">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Product</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          nhập name : <input [(ngModel)]="name" placeholder="name" readonly>
+          <br>
+          nhập img :<input [(ngModel)]="img" placeholder="img">
+          <br>
+          nhập price :<input [(ngModel)]="price">
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" (click)="submitEdit(name)" class="btn btn-success" data-dismiss="modal">Edit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
