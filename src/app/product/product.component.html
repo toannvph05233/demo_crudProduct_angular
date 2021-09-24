@@ -4,12 +4,6 @@
   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalCreate">
     Create
   </button>
-  <h1>{{name2}}</h1>
-  <select [(ngModel)]="name2">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-  </select>
   <table class="table table-striped">
     <thead>
     <tr>
@@ -27,7 +21,7 @@
       <td>{{p.name}}</td>
       <td><img src="{{p.img}}" width="300" height="200"></td>
 
-<!--  *ngIf nếu là true thì sẽ hiển thị thẻ đó, không hiển thị thẻ khi là false-->
+      <!--  *ngIf nếu là true thì sẽ hiển thị thẻ đó, không hiển thị thẻ khi là false-->
       <td *ngIf="p.status === true" style="color: blue">Còn hàng</td>
       <td *ngIf="p.status === false" style="color: red">hết hàng</td>
 
@@ -42,7 +36,6 @@
         <button (click)="deleteProduct(p.name)" type="button" class="btn btn-secondary">Delete</button>
       </td>
     </tr>
-
 
 
     </tbody>
@@ -60,18 +53,26 @@
         </div>
 
         <!-- Modal body -->
-        <div class="modal-body">
-          nhập name : <input [(ngModel)]="name" placeholder="name">
-          <br>
-          nhập img :<input [(ngModel)]="img" placeholder="img">
-          <br>
-          nhập price :<input [(ngModel)]="price">
-        </div>
+        <form [formGroup]="productFormGroup">
+          <div class="modal-body">
+            nhập name : <input placeholder="name" formControlName="name">
+            <p *ngIf="!productFormGroup.get('name').valid && productFormGroup.get('name').touched" style="color: red">Name min 6</p>
+            <br>
+            nhập img :<input placeholder="img" formControlName="img">
+            <p *ngIf="!productFormGroup.get('img').valid && productFormGroup.get('img').touched" style="color: red">Not null</p>
+            <br>
+            nhập price :<input formControlName="price">
+            <p *ngIf="!productFormGroup.get('price').valid && productFormGroup.get('price').touched" style="color: red">Price > 0 </p>
+          </div>
+        </form>
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" (click)="createProduct()" class="btn btn-success" data-dismiss="modal">Crete</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" (click)="createProduct()"
+                  [disabled]="productFormGroup.invalid"
+                  class="btn btn-success" data-dismiss="modal">Create</button>
+          <button type="button" (click)="productFormGroup.reset()" class="btn btn-danger" data-dismiss="modal">Close
+          </button>
         </div>
 
       </div>
@@ -90,18 +91,21 @@
         </div>
 
         <!-- Modal body -->
-        <div class="modal-body">
-          nhập name : <input [(ngModel)]="name" placeholder="name" readonly>
-          <br>
-          nhập img :<input [(ngModel)]="img" placeholder="img">
-          <br>
-          nhập price :<input [(ngModel)]="price">
-        </div>
+        <form [formGroup]="productFormGroup">
+          <div class="modal-body">
+            nhập name : <input placeholder="name" readonly formControlName="name">
+            <br>
+            nhập img :<input placeholder="img" formControlName="img">
+            <br>
+            nhập price :<input formControlName="price">
+          </div>
+        </form>
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" (click)="submitEdit(name)" class="btn btn-success" data-dismiss="modal">Edit</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" (click)="submitEdit()" class="btn btn-success" data-dismiss="modal">Edit</button>
+          <button type="button" (click)="productFormGroup.reset()" class="btn btn-danger" data-dismiss="modal">Close
+          </button>
         </div>
 
       </div>
