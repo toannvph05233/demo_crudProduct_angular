@@ -1,7 +1,4 @@
 <app-header></app-header>
-<app-product [products]="products"
-             (deleteProductEmit)="deleteProduct($event)"
-             (editProductEmit)="editProduct($event)"
-             (createProductEmit)="createProduct($event)"></app-product>
-<app-home [products]="products"></app-home>
+<router-outlet></router-outlet>
+
 <app-footer></app-footer>
