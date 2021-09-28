@@ -1,7 +1,7 @@
 <div class="container">
   <h2>Table Product</h2>
   <p></p>
-  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalCreate">
+  <button type="button" class="btn btn-success" routerLink="/product/create">
     Create
   </button>
   <table class="table table-striped">
@@ -41,75 +41,5 @@
     </tbody>
   </table>
 
-  <!-- The Modal create -->
-  <div class="modal" id="myModalCreate">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Create Product</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-
-        <!-- Modal body -->
-        <form [formGroup]="productFormGroup">
-          <div class="modal-body">
-            nhập name : <input placeholder="name" formControlName="name">
-            <p *ngIf="!productFormGroup.get('name').valid && productFormGroup.get('name').touched" style="color: red">Name min 6</p>
-            <br>
-            nhập img :<input placeholder="img" formControlName="img">
-            <p *ngIf="!productFormGroup.get('img').valid && productFormGroup.get('img').touched" style="color: red">Not null</p>
-            <br>
-            nhập price :<input formControlName="price">
-            <p *ngIf="!productFormGroup.get('price').valid && productFormGroup.get('price').touched" style="color: red">Price > 0 </p>
-          </div>
-        </form>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" (click)="createProduct()"
-                  [disabled]="productFormGroup.invalid"
-                  class="btn btn-success" data-dismiss="modal">Create</button>
-          <button type="button" (click)="productFormGroup.reset()" class="btn btn-danger" data-dismiss="modal">Close
-          </button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- The Modal Edit -->
-  <div class="modal" id="myModalEdit">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Edit Product</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-
-        <!-- Modal body -->
-        <form [formGroup]="productFormGroup">
-          <div class="modal-body">
-            nhập name : <input placeholder="name" readonly formControlName="name">
-            <br>
-            nhập img :<input placeholder="img" formControlName="img">
-            <br>
-            nhập price :<input formControlName="price">
-          </div>
-        </form>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" (click)="submitEdit()" class="btn btn-success" data-dismiss="modal">Edit</button>
-          <button type="button" (click)="productFormGroup.reset()" class="btn btn-danger" data-dismiss="modal">Close
-          </button>
-        </div>
-
-      </div>
-    </div>
-  </div>
 </div>
 
