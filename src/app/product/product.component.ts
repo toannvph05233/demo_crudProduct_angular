@@ -32,18 +32,6 @@ export class ProductComponent implements OnInit {
     })
   }
 
-
-  showEdit(name) {
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].name === name) {
-        this.productFormGroup.get('name').setValue(this.products[i].name);
-        this.productFormGroup.get('img').setValue(this.products[i].img);
-        this.productFormGroup.get('price').setValue(this.products[i].price);
-        return;
-      }
-    }
-  }
-
   createProduct() {
     this.productService.createProduct(this.productFormGroup.value);
     this.productFormGroup.reset();

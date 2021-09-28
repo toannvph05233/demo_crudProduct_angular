@@ -36,5 +36,13 @@ export class ProductService {
     }
   }
 
+  showEdit(name) {
+    for (let i = 0; i < this.products.length; i++) {
+      if (this.products[i].name === name) {
+        return this.products[i];
+      }
+    }
+  }
+
 
 }

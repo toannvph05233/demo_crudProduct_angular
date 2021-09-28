@@ -27,8 +27,7 @@
 
       <td>{{p.price}}</td>
       <td>
-        <button type="button" class="btn btn-secondary" (click)="showEdit(p.name)" data-toggle="modal"
-                data-target="#myModalEdit">
+        <button type="button" class="btn btn-secondary" [routerLink]="['/product/edit/',p.name]">
           Edit
         </button>
       </td>

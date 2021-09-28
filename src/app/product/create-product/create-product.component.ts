@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {ProductService} from "../../services/product.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-product',
@@ -10,7 +11,7 @@ import {ProductService} from "../../services/product.service";
 export class CreateProductComponent implements OnInit {
   productForm: FormGroup;
 
-  constructor(private producService: ProductService) {
+  constructor(private producService: ProductService, private router: Router) {
   }
 
   ngOnInit() {
@@ -24,6 +25,7 @@ export class CreateProductComponent implements OnInit {
 
   saveProduct() {
     this.producService.createProduct(this.productForm.value);
+    this.router.navigate(['/product'])
   }
 
 }
