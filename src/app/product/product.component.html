@@ -27,12 +27,12 @@
 
       <td>{{p.price}}</td>
       <td>
-        <button type="button" class="btn btn-secondary" [routerLink]="['/product/edit/',p.name]">
+        <button type="button" class="btn btn-secondary" [routerLink]="['/product/edit/',p.id]">
           Edit
         </button>
       </td>
       <td>
-        <button (click)="deleteProduct(p.name)" type="button" class="btn btn-secondary">Delete</button>
+        <button (click)="deleteProduct(p.id)" type="button" class="btn btn-secondary">Delete</button>
       </td>
     </tr>
 

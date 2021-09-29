@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {Product} from "../model/product";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ProductService} from "../services/product.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-product',
@@ -16,14 +16,13 @@ import {ProductService} from "../services/product.service";
 })
 export class ProductComponent implements OnInit {
   productFormGroup: FormGroup
-
   products: Product[] = [];
 
-  constructor(private productService: ProductService) {
-    this.products = productService.products;
+  constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
+    this.getProducts();
     this.productFormGroup = new FormGroup({
       name: new FormControl('', Validators.minLength(6)),
       img: new FormControl('', Validators.required),
@@ -32,21 +31,18 @@ export class ProductComponent implements OnInit {
     })
   }
 
-  createProduct() {
-    this.productService.createProduct(this.productFormGroup.value);
-    this.productFormGroup.reset();
-    this.productFormGroup.get('status').setValue(true);
+  getProducts() {
+    this.http.get<Product[]>('http://localhost:8080/api/products').subscribe((data) => {
+      this.products = data;
+    })
   }
 
-
-  submitEdit() {
-    this.productService.editProduct(this.productFormGroup.value);
-    this.productFormGroup.reset();
-    this.productFormGroup.get('status').setValue(true);
-
+  deleteProduct(id) {
+    this.http.delete(`http://localhost:8080/api/products/${id}`).subscribe((data) => {
+      alert("xóa thành công");
+      this.getProducts();
+    })
   }
-  deleteProduct(name){
-    this.productService.deleteProduct(name);
-  }
+
 
 }

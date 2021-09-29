@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {ProductService} from "../../services/product.service";
 import {Router} from "@angular/router";
+import {Product} from "../../model/product";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-create-product',
@@ -11,7 +13,7 @@ import {Router} from "@angular/router";
 export class CreateProductComponent implements OnInit {
   productForm: FormGroup;
 
-  constructor(private producService: ProductService, private router: Router) {
+  constructor(private producService: ProductService, private router: Router, private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -23,9 +25,12 @@ export class CreateProductComponent implements OnInit {
     })
   }
 
-  saveProduct() {
-    this.producService.createProduct(this.productForm.value);
-    this.router.navigate(['/product'])
+  createProduct() {
+    this.http.post<Product>('http://localhost:8080/api/products', this.productForm.value).subscribe((data) => {
+      alert("create thành công - " + data.name)
+      this.router.navigate(["/product"])
+    })
+
   }
 
 }
